@@ -26,6 +26,6 @@ variable "tg_name" {
 
 variable "tg_port" {
   type    = number
-  default = "The port of the target group"
+  description = "The port of the target group"
 
 }
