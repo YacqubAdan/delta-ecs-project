@@ -1,14 +1,31 @@
+variable "alb_name" {
+  type        = string
+  description = "The name of the ALB"
+}
+
 variable "alb_sg_id" {
   type        = string
   description = "The id of the security group"
 }
 
 variable "public_subnet_ids" {
-    type = list(string)
-    description = "The id of the public subnets"
+  type        = list(string)
+  description = "The id of the public subnets"
+}
+variable "vpc_id" {
+  type        = string
+  description = "The id of the VPC"
 }
 
-variable "delta_alb_name" {
-  type = string
-  description = "The name of the alb"
+
+variable "tg_name" {
+  type        = string
+  description = "The name of the target group"
+
+}
+
+variable "tg_port" {
+  type    = number
+  default = "The port of the target group"
+
 }
