@@ -7,3 +7,14 @@ module "vpc" {
   ecs_sg_name               = "ecs-security-group"
   alb_sg_name               = "alb-security-group"
 }
+
+module "alb" {
+  source   = "./modules/alb"
+  alb_name = "delta-alb"
+  alb_sg_id = module.vpc.alb_sg_id
+  vpc_id = module.vpc.vpc_id
+  tg_name = "delta-tg"
+  public_subnet_ids = module.vpc.public_subnet_id
+  tg_port = 3000
+}
+
