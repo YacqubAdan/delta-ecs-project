@@ -43,3 +43,9 @@ module "route53" {
 }
 
 
+module "acm" {
+  source    = "./modules/acm"
+  main_fqdn = module.route53.main_fqdn
+  dns_name  = "deltatv.yacquub.com"
+}
+
