@@ -18,7 +18,7 @@ output "tg_arn" {
   description = "The arn of target group"
 }
 
-output "http_listen" {
+output "http_listen_id" {
   value       = aws_lb_listener.delta-listener-http.id
   description = "The id of http listener"
 }

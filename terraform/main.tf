@@ -9,12 +9,28 @@ module "vpc" {
 }
 
 module "alb" {
-  source   = "./modules/alb"
-  alb_name = "delta-alb"
-  alb_sg_id = module.vpc.alb_sg_id
-  vpc_id = module.vpc.vpc_id
-  tg_name = "delta-tg"
+  source            = "./modules/alb"
+  alb_name          = "delta-alb"
+  alb_sg_id         = module.vpc.alb_sg_id
+  vpc_id            = module.vpc.vpc_id
+  tg_name           = "delta-tg"
   public_subnet_ids = module.vpc.public_subnet_id
-  tg_port = 3000
+  tg_port           = 3000
+}
+
+module "ecs" {
+    source = "./modules/ecs"
+    vpc_id = module.vpc.vpc_id
+    ecs_sg_id = module.vpc.ecs_sg_id
+    alb_sg_id = module.vpc.alb_sg_id
+    http_listen_id = module.alb.http_listen_id
+    subnet_ids = module.vpc.public_subnet_id
+    tg_arn = module.alb.tg_arn
+    container_img = "582139844732.dkr.ecr.eu-west-2.amazonaws.com/delta-videos"
+    desired_count = 1
+    container_port = 3000 
+    host_port = 3000
+    memory = "4096"
+    cpu = "2048" 
 }
 
