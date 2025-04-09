@@ -25,7 +25,7 @@ variable "tg_name" {
 }
 
 variable "tg_port" {
-  type    = number
+  type        = number
   description = "The port of the target group"
 
 }
