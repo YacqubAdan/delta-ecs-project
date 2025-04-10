@@ -31,13 +31,14 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-west-2
 
-    - name: Retrieve API Key from AWS Secrets Manager
-      id: get_secret
+    - name: Retrieve VITE_RAPID_API_KEY from Secrets Manager
       run: |
-        aws secretsmanager get-secret-value \
-        --secret-id delta-api-key \
-        --query 'SecretString' \
-        --output text | grep -oP '"VITE_RAPID_API_KEY"\s*:\s*"\K[^"]+' >> $GITHUB_ENV
+        API_KEY=$(aws secretsmanager get-secret-value \
+          --secret-id delta-api-key \
+          --query 'SecretString' \
+          --output text | grep -oP '"VITE_RAPID_API_KEY"\s*:\s*"\K[^"]+')
+    
+        echo "VITE_RAPID_API_KEY=$API_KEY" >> $GITHUB_ENV
 
     - name: Build Image
       run: |
