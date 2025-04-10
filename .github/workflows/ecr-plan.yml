@@ -9,7 +9,7 @@ on:
         default: 'no' 
 
 jobs:
-  build:
+  build-and-scan:
     runs-on: ubuntu-latest
     steps:
 

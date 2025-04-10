@@ -1,4 +1,4 @@
-name: ecr-cicd
+name: Deploy Image to ECR 
 
 on:
   workflow_dispatch:
@@ -11,52 +11,43 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-
     steps:
 
-      - name: "if no confirmation, exit"
-        run: |
-          if [ "${{ github.event.inputs.confirmation }}" != "yes" ]; then
-            echo "Exiting without deployment"
-            exit 1
-          fi
-        shell: bash
+    - name: "if no confirmation, exit"
+      run: |
+        if [ "${{ github.event.inputs.confirmation }}" != "yes" ]; then
+          echo "Exiting without deployment"
+          exit 1
+        fi
+      shell: bash
 
-      - name: Checkout
-        uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-2
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-2
 
-      - name: Retrieve API Key from AWS Secrets Manager
-        id: get_secret
-        run: |
-          aws secretsmanager get-secret-value \
+    - name: Retrieve VITE_RAPID_API_KEY from Secrets Manager
+      run: |
+        API_KEY=$(aws secretsmanager get-secret-value \
           --secret-id delta-api-key \
           --query 'SecretString' \
-          --output text | grep -oP '"VITE_RAPID_API_KEY"\s*:\s*"\K[^"]+' >> $GITHUB_ENV
+          --output text | grep -oP '"VITE_RAPID_API_KEY"\s*:\s*"\K[^"]+')
+    
+        echo "VITE_RAPID_API_KEY=$VITE_RAPID_API_KEY" >> $GITHUB_ENV
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build Image
-        run: |
-          docker build -t "${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}" --build-arg API_KEY="${{ env.API_KEY }}" .
-
-      - name: Scan Image for vulnerabilities using Trivy
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: '${{ env.ECR_REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}'
-          format: 'table'
-          exit-code: '1'
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
-        
-      - name: Push Image to Amazon ECR
-        run: |
-          docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAGest
+    - name: Build Image
+      run: |
+        docker build -t "${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }}" --build-arg VITE_RAPID_API_KEY="${{ env.VITE_RAPID_API_KEY }}" .    
+      
+    - name: Push Image to Amazon ECR
+      run: |
+        docker push "${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }}"
