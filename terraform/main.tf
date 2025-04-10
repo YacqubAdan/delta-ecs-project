@@ -16,6 +16,7 @@ module "alb" {
   tg_name           = "delta-tg"
   public_subnet_ids = module.vpc.public_subnet_id
   tg_port           = 3000
+  certificate_arn   = module.acm.certificate_arn
 }
 
 module "ecs" {
@@ -35,17 +36,16 @@ module "ecs" {
 }
 
 module "route53" {
-  source         = "./modules/route53"
-  dns_name       = "deltatv.yacquub.com"
-  alb_zone_id    = module.alb.alb_zone_id
-  alb_dns        = module.alb.alb_dns
-  dns_record_ttl = 3000
+  source      = "./modules/route53"
+  dns_name    = "deltavids.yacquub.com"
+  alb_zone_id = module.alb.alb_zone_id
+  alb_dns     = module.alb.alb_dns
 }
 
 
 module "acm" {
-  source    = "./modules/acm"
-  main_fqdn = module.route53.main_fqdn
-  dns_name  = "deltatv.yacquub.com"
+  source         = "./modules/acm"
+  dns_name       = "deltavids.yacquub.com"
+  dns_record_ttl = 3000
 }
 

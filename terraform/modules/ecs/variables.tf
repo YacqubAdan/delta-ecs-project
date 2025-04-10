@@ -36,12 +36,12 @@ variable "host_port" {
 }
 
 variable "cpu" {
-  type    = number
+  type        = number
   description = "ECS Container CPU"
 }
 
 variable "memory" {
-  type    = number
+  type        = number
   description = "ECS Container memory"
 }
 

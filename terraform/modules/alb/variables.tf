@@ -29,3 +29,8 @@ variable "tg_port" {
   description = "The port of the target group"
 
 }
+
+variable "certificate_arn" {
+  type        = string
+  description = "The certificate ARN"
+}
