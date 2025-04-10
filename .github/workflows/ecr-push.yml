@@ -1,0 +1,33 @@
+name: ecr-cicd
+
+on:
+  push:
+    branches: [ main, stage ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
+
+      - run: |
+          aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 582139844732.dkr.ecr.eu-west-2.amazonaws.com
+
+      - run: docker build -t delta-videos:latest ./app
+
+      - uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: delta-videos:latest
+          format: table
+          exit-code: 0
+
+      - run: docker tag delta-videos:latest 582139844732.dkr.ecr.eu-west-2.amazonaws.com/delta-videos:latest
+
+      - run: docker push 582139844732.dkr.ecr.eu-west-2.amazonaws.com/delta-videos:latest
