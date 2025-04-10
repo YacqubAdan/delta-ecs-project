@@ -35,8 +35,10 @@ jobs:
       - name: Retrieve API Key from AWS Secrets Manager
         id: get_secret
         run: |
-          API_KEY=$(aws secretsmanager get-secret-value --secret-id delta-api-key --query SecretString --output text | jq -r '.api_key')
-          echo "API_KEY=$API_KEY" >> $GITHUB_ENV
+          aws secretsmanager get-secret-value \
+          --secret-id delta-api-key \
+          --query 'SecretString' \
+          --output text | grep -oP '"VITE_RAPID_API_KEY"\s*:\s*"\K[^"]+' >> $GITHUB_ENV
 
       - name: Login to Amazon ECR
         id: login-ecr
