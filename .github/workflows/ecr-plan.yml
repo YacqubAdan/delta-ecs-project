@@ -34,12 +34,14 @@ jobs:
     - name: Retrieve API Key from AWS Secrets Manager
       id: get_secret
       run: |
-        API_KEY=$(aws secretsmanager get-secret-value --secret-id delta-api-key --query SecretString --output text | jq -r '.api_key')
-        echo "API_KEY=$API_KEY" >> $GITHUB_ENV
+        aws secretsmanager get-secret-value \
+        --secret-id delta-api-key \
+        --query 'SecretString' \
+        --output text | grep -oP '"VITE_RAPID_API_KEY"\s*:\s*"\K[^"]+' >> $GITHUB_ENV
 
     - name: Build Image
       run: |
-        docker build -t "${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}" --build-arg API_KEY="${{ env.API_KEY }}" .
+        docker build -t "${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}" --build-arg VITE_RAPID_API_KEY="${{ env.API_KEY }}" .
 
     - name: Image Scan 
       uses: aquasecurity/trivy-action@master
