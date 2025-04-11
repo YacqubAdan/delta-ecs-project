@@ -38,7 +38,7 @@ jobs:
           --query 'SecretString' \
           --output text | grep -oP '"VITE_RAPID_API_KEY"\s*:\s*"\K[^"]+')
     
-        echo "VITE_RAPID_API_KEY=$VITE_RAPID_API_KEY" >> $GITHUB_ENV
+        echo "VITE_RAPID_API_KEY=$API_KEY" >> $GITHUB_ENV
 
     - name: Login to Amazon ECR
       id: login-ecr
