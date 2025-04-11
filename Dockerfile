@@ -1,4 +1,4 @@
-build stage
+# build stage
 FROM node:23-slim AS build
 ARG VITE_RAPID_API_KEY
 WORKDIR /app
