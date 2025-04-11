@@ -9,7 +9,7 @@ on:
         default: 'no' 
 
 jobs:
-  build:
+  build-and-scan:
     runs-on: ubuntu-latest
     steps:
 
@@ -31,22 +31,23 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-west-2
 
-    - name: Retrieve API Key from AWS Secrets Manager
-      id: get_secret
+    - name: Retrieve VITE_RAPID_API_KEY from Secrets Manager
       run: |
-        aws secretsmanager get-secret-value \
-        --secret-id delta-api-key \
-        --query 'SecretString' \
-        --output text | grep -oP '"VITE_RAPID_API_KEY"\s*:\s*"\K[^"]+' >> $GITHUB_ENV
+        API_KEY=$(aws secretsmanager get-secret-value \
+          --secret-id delta-api-key \
+          --query 'SecretString' \
+          --output text | grep -oP '"VITE_RAPID_API_KEY"\s*:\s*"\K[^"]+')
+    
+        echo "VITE_RAPID_API_KEY=$VITE_RAPID_API_KEY" >> $GITHUB_ENV
 
     - name: Build Image
       run: |
-        docker build -t "${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}" --build-arg VITE_RAPID_API_KEY="${{ env.API_KEY }}" .
+        docker build -t "${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }}" --build-arg VITE_RAPID_API_KEY="${{ env.VITE_RAPID_API_KEY }}" .
 
     - name: Image Scan 
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: '${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}'
+        image-ref: '${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPOSITORY }}:${{ vars.IMAGE_TAG }}'
         format: 'table'
         severity: 'CRITICAL,HIGH'
         exit-code: 0
