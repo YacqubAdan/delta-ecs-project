@@ -5,6 +5,7 @@ resource "aws_lb" "delta-alb" {
   security_groups            = [var.alb_sg_id]
   subnets                    = var.public_subnet_ids
   enable_deletion_protection = false
+  drop_invalid_header_fields = true
 }
 
 resource "aws_lb_target_group" "delta-tg" {
