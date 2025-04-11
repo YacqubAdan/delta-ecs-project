@@ -29,15 +29,6 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.3.0"
-
-      - name: Setup tflint
-        uses: terraform-linters/setup-tflint@v4
-        with:
-          tflint_version: "v0.56.0"
-
-      - name: Run tflint
-        id: tflint
-        run: tflint --init && tflint -f compact
         
       - name: aws config
         uses: aws-actions/configure-aws-credentials@v4
@@ -57,7 +48,11 @@ jobs:
       - name: Terraform Validate
         id: validate
         run: terraform validate
-    
+        
+      - name: Run tflint
+        uses: terraform-linters/setup-tflint@v4
+      - run: tflint --init && tflint
+   
       - name: Run Checkov Security Scan
         id: checkov
         uses: bridgecrewio/checkov-action@v12
