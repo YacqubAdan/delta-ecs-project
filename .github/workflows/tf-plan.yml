@@ -48,6 +48,12 @@ jobs:
       - name: Terraform Validate
         id: validate
         run: terraform validate
+    
+      - name: Run Checkov Security Scan
+        id: checkov
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: ./terraform
 
       - name: Terraform Plan
         id: plan
