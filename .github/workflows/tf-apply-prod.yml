@@ -75,4 +75,5 @@ jobs:
     - name: Terraform Apply
       run: |
         terraform workspace select ${{ env.environment }} && terraform apply -auto-approve
+        terraform apply -var-file="environments/${{ env.environment }}.tfvars" -auto-approve
       working-directory: terraform
