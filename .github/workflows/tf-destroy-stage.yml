@@ -1,5 +1,4 @@
-name: Terraform Apply
-
+name: Terraform Destroy on Stage
 on:
   workflow_dispatch:
     inputs:
@@ -9,8 +8,10 @@ on:
         default: 'no' 
 
 jobs:
-  terraform-apply:
+  terraform-destroy:
     runs-on: ubuntu-latest
+    env:
+      environment: stage
     steps:
     - name: "if no confirmation, exit"
       run: |
@@ -70,6 +71,8 @@ jobs:
       run: terraform init
       working-directory: terraform
 
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
+    - name: Terraform Destroy
+      run: |
+        terraform workspace select ${{ env.environment }}
+        terraform destroy -var-file="environments/${{ env.environment }}.tfvars" -auto-approve
       working-directory: terraform

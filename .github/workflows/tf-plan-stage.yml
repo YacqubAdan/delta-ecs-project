@@ -1,4 +1,4 @@
-name: 'Terraform Plan'
+name: Terraform Plan on Stage
 
 on:
    workflow_dispatch:
@@ -16,6 +16,8 @@ jobs:
   terraform:
     name: "Terraform Plan"
     runs-on: ubuntu-latest
+    env:
+      environment: stage
    
     steps:
       - name: Checkout Code
@@ -78,7 +80,7 @@ jobs:
         
       - name: Run tflint
         uses: terraform-linters/setup-tflint@v4
-      - run: tflint --init && tflint
+      - run: tflint --init && tflint --var-file environments/${{ env.environment }}.tfvars
    
       - name: Run Checkov Security Scan
         id: checkov
@@ -88,4 +90,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan
+        run: |
+          terraform workspace select ${{ env.environment }}
+          terraform plan -var-file="environments/${{ env.environment }}.tfvars" -auto-approve
+
