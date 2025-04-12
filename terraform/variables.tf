@@ -1,20 +1,11 @@
-variable "environment" {
-  type        = string
-  description = "The current environment"
-}
-
-
 variable "dns_name" {
   type        = string
   description = "The name of the DNS"
 }
-
-
 variable "vpc_cidr_block" {
   type        = string
   description = "The cidr block for vpc"
 }
-
 
 variable "subnet_availability_zones" {
   type        = list(string)
