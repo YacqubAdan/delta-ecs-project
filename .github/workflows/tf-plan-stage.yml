@@ -91,5 +91,5 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: |
-          terraform select ${{ env.environment }} && terraform plan
+          terraform workspace select ${{ env.environment }} && terraform plan
 
