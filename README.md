@@ -1,11 +1,24 @@
 # App: deltavids 
 
 ## Table of Contents 📚
-  - [Live Demonstrations](#🎥-Live-Demonstration)
+- [App: deltavids](#app-deltavids)
+  - [Table of Contents 📚](#table-of-contents-)
+  - [🎥Live Demonstration](#live-demonstration)
+  - [Local Setup Vite](#local-setup-vite)
+  - [Local Setup Packer](#local-setup-packer)
+  - [Secure Multi-Stage Docker](#secure-multi-stage-docker)
+  - [Terraform Structure](#terraform-structure)
+  - [Vault Server](#vault-server)
+  - [Deployment Workflow](#deployment-workflow)
+  - [AWS Services Used](#aws-services-used)
+  - [Architecture Diagram](#architecture-diagram)
 ---
 
+
+
+## 🎥Live Demonstration
+
 <div style="text-align: center; margin: 20px 0;">
-  <h2 style="font-family: 'Arial', sans-serif; color: #FF5722; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">🎥Live Demonstration</h2> 
   <h3>Prod:</h3>
   <div style="width: 400px; margin: 0 auto; border-radius: 10px;overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
     <img src="https://github.com/YacqubAdan/delta-ecs-project/blob/main/Images/deltavidsprod.gif?raw=true" alt="Prod GIF" width="100%" />
@@ -18,3 +31,33 @@
     <img src="https://github.com/YacqubAdan/delta-ecs-project/blob/main/Images/stagedelta.gif?raw=true" alt="Stage GIF" width="100%" />
   </div>
 </div>
+
+
+## Local Setup Vite
+
+
+
+## Local Setup Packer
+
+
+
+## Secure Multi-Stage Docker
+
+
+## Terraform Structure
+
+
+## Vault Server
+
+
+
+## Deployment Workflow
+
+
+
+## AWS Services Used
+
+
+
+
+## Architecture Diagram
