@@ -44,8 +44,8 @@ jobs:
           echo "AWS Credentials Retrieved Successfully"
 
           echo "::add-mask::$AWS_ACCESS_KEY_ID"
-          echo "::add-mask::$AWS_SECRET_ACCESS_KEY
-          
+          echo "::add-mask::$AWS_SECRET_ACCESS_KEY"
+
           echo "AWS_ACCESS=${AWS_ACCESS_KEY_ID}" >> $GITHUB_ENV
           echo "AWS_SECRET=${AWS_SECRET_ACCESS_KEY}" >> $GITHUB_ENV
 
