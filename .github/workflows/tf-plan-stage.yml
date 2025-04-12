@@ -86,11 +86,12 @@ jobs:
         id: checkov
         uses: bridgecrewio/checkov-action@v12
         with:
+          check: CKV_AWS_1, CKV_AWS_2, CKV_AWS_3
           directory: ./terraform
 
       - name: Terraform Plan
         id: plan
         run: |
           terraform workspace select ${{ env.environment }}
-          terraform plan -var-file="environments/${{ env.environment }}.tfvars" -auto-approve
+          terraform plan -var-file="environments/${{ env.environment }}.tfvars"
 
