@@ -48,6 +48,49 @@
 
 ## Terraform Structure
 
+```
+terraform/
+├── environments/
+│   ├── prod.tfvars
+│   └── stage.tfvars
+├── modules/
+│   ├── acm/
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   ├── alb/
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   ├── ecs/
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   ├── route53/
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   └── vpc/
+│       ├── main.tf
+│       ├── outputs.tf
+│       └── variables.tf
+├── backend.tf
+├── main.tf
+├── provider.tf
+└── variables.tf
+```
+
+**Modules**
+- VPC - setup virtual private network for environments including subnets, route tables, internet gateway and security groups
+- ALB 
+- ECS 
+- Route53
+- ACM
+
+**Environments**
+
+
+**Backend**
 
 ## Vault Server
 
