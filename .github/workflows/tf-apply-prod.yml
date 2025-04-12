@@ -74,7 +74,5 @@ jobs:
 
     - name: Terraform Apply
       run: |
-        terraform workspace list
-        terraform workspace new ${{ env.environment }}
         terraform select ${{ env.environment }} && terraform apply -auto-approve
       working-directory: terraform
