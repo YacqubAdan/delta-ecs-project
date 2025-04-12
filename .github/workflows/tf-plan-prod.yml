@@ -80,7 +80,7 @@ jobs:
         
       - name: Run tflint
         uses: terraform-linters/setup-tflint@v4
-      - run: tflint --init && tflint -var-file="environments/${{ env.environment }}.tfvars"
+      - run: tflint --init && tflint --var-file environments/${{ env.environment }}.tfvars
    
       - name: Run Checkov Security Scan
         id: checkov
