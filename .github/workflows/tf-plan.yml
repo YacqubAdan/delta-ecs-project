@@ -42,8 +42,15 @@ jobs:
 
       - name: Retrieve AWS Secrets from Vault
         run: |
-          export AWS_ACCESS_KEY_ID=$(vault kv get -field=AWS_ACCESS_KEY kv/aws-secrets/aws-access)
-          export AWS_SECRET_ACCESS_KEY=$(vault kv get -field=AWS_SECRET_KEY kv/aws-secrets/aws-access)
+          echo "Retrieving AWS secrets from Vault"
+          # Debug Vault response
+          AWS_SECRETS=$(vault kv get -format=json kv/aws-secrets/aws-access)
+          echo "Full Vault Secrets Response: $AWS_SECRETS"
+          
+          # Extract AWS keys from the JSON response
+          export AWS_ACCESS_KEY_ID=$(echo $AWS_SECRETS | jq -r '.data.data.AWS_ACCESS_KEY')
+          export AWS_SECRET_ACCESS_KEY=$(echo $AWS_SECRETS | jq -r '.data.data.AWS_SECRET_KEY')
+
           echo "AWS Credentials Retrieved Successfully"
           echo "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" >> $GITHUB_ENV
           echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" >> $GITHUB_ENV
