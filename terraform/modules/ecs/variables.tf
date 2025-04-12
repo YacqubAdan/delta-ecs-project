@@ -74,3 +74,8 @@ variable "http_listen_id" {
   type        = string
   description = "The id of http listener"
 }
+
+variable "exec_role" {
+  type        = string
+  description = "Execution role for ECS"
+}

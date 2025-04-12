@@ -62,7 +62,7 @@ resource "aws_ecs_service" "delta-ecs-service" {
 
 
 resource "aws_iam_role" "exec_role" {
-  name = "ecs-exec-role"
+  name = var.exec_role
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
