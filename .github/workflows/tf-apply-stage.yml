@@ -1,5 +1,4 @@
-name: Terraform Apply on Prod
-
+name: Terraform Apply on Stage
 on:
   workflow_dispatch:
     inputs:
