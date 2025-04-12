@@ -7,3 +7,8 @@ variable "dns_record_ttl" {
   type        = number
   description = "The TTL for the DNS record"
 }
+
+variable "dns_zone" {
+  type    = string
+  default = "deltavids.yacquub.com"
+}

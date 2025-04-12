@@ -14,7 +14,7 @@ resource "aws_acm_certificate_validation" "delta-acm-val" {
 
 
 data "aws_route53_zone" "dns-zone" {
-  name = var.dns_name
+  name = "deltavids.yacquub.com"
 }
 
 resource "aws_route53_record" "dns-validation-main" {

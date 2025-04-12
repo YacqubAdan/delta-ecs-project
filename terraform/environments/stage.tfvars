@@ -1,0 +1,12 @@
+environment               = "stage"
+vpc_name                  = "stage-delta-vpc"
+vpc_cidr_block            = "10.1.0.0/16"
+public_subnet_cidrs       = ["10.1.1.0/24", "10.1.2.0/24"]
+subnet_availability_zones = ["eu-west-2b", "eu-west-2c"]
+dns_name                  = "stage.deltavids.yacquub.com"
+ecs_name                  = "stage-delta-ecs"
+ecs_family                = "stage-delta-task"
+service_name              = "stage-delta-service"
+alb_name                  = "stage-delta-alb"
+tg_name                   = "stage-delta-tg"
+exec_role                 = "stage-exec-role"
