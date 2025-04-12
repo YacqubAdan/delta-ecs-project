@@ -1,0 +1,12 @@
+environment               = "prod"
+vpc_cidr_block            = "10.0.0.0/16"
+vpc_name                  = "prod-delta-vpc"
+public_subnet_cidrs       = ["10.0.1.0/24", "10.0.2.0/24"]
+subnet_availability_zones = ["eu-west-2a", "eu-west-2b"]
+dns_name                  = "deltavids.yacquub.com"
+ecs_name                  = "prod-delta-ecs"
+ecs_family                = "prod-delta-task"
+service_name              = "prod-delta-service"
+alb_name                  = "prod-delta-alb"
+tg_name                   = "prod-delta-tg"
+exec_role                 = "prod-exec-role"

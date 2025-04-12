@@ -1,5 +1,5 @@
 data "aws_route53_zone" "dns-zone" {
-  name = var.dns_name
+  name = "deltavids.yacquub.com"
 }
 
 resource "aws_route53_record" "main-record" {

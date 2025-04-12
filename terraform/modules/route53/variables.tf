@@ -12,3 +12,8 @@ variable "alb_zone_id" {
   type        = string
   description = "The id of the ALB"
 }
+
+variable "dns_zone" {
+  type    = string
+  default = "deltavids.yacquub.com"
+}
