@@ -35,7 +35,7 @@ dist-ssr
 crash.log
 crash.*.log
 
-*.tfvars
+
 *.tfvars.json
 
 # Ignore CLI configuration files
