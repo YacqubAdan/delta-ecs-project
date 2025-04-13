@@ -1,12 +1,11 @@
 name: Deploy Image to ECR 
 
 on:
-  workflow_dispatch:
-    inputs:
-      confirmation:
-        description: 'Type "yes" to confirm deployment'
-        required: true
-        default: 'no' 
+  push:
+    branches:
+      - main 
+    paths:
+      - 'app/**' 
 
 jobs:
   build-and-push:

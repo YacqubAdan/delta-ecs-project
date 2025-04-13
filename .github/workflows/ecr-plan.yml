@@ -1,25 +1,17 @@
 name: Plan ECR Deployment
 
 on:
-  workflow_dispatch:
-    inputs:
-      confirmation:
-        description: 'Type "yes" to confirm deployment'
-        required: true
-        default: 'no' 
+  pull_request:
+    types: [opened]
+    branches:
+      - main 
+    paths:
+      - 'app/**'
 
 jobs:
   build-and-scan:
     runs-on: ubuntu-latest
     steps:
-
-    - name: "if no confirmation, exit"
-      run: |
-        if [ "${{ github.event.inputs.confirmation }}" != "yes" ]; then
-          echo "Exiting without deployment"
-          exit 1
-        fi
-      shell: bash
 
     - name: Checkout Code
       uses: actions/checkout@v3
