@@ -8,12 +8,15 @@
   - [Local Setup Packer](#local-setup-packer)
   - [Secure Multi-Stage Docker](#secure-multi-stage-docker)
   - [Terraform Structure](#terraform-structure)
+  - [Modules](#modules)
+  - [Environments](#environments)
+  - [Backend](#backend)
+  - [Usage](#usage)
   - [Vault Server](#vault-server)
   - [Deployment Workflow](#deployment-workflow)
   - [AWS Services Used](#aws-services-used)
   - [Architecture Diagram](#architecture-diagram)
 ---
-
 
 
 ## 🎥Live Demonstration
@@ -80,17 +83,32 @@ terraform/
 └── variables.tf
 ```
 
-**Modules**
-- VPC - setup virtual private network for environments including subnets, route tables, internet gateway and security groups
-- ALB 
-- ECS 
-- Route53
-- ACM
+## Modules
 
-**Environments**
+-   **VPC**: Sets up the virtual private network, including subnets, route tables, internet gateways, and security groups.
+-   **ALB**: Manages Application Load Balancers for distributing incoming traffic.
+-   **ECS**: Deploys and manages Elastic Container Service clusters and tasks.
+-   **Route53**: Configures DNS records using Route 53.
+-   **ACM**: Provisions and manages AWS Certificate Manager certificates for SSL/TLS.
 
+## Environments
 
-**Backend**
+-   **prod.tfvars**: Defines variables specific to the production environment.
+-   **stage.tfvars**: Defines variables specific to the staging environment.
+
+## Backend
+
+-   `backend.tf`: Configures the Terraform backend for storing state remotely (in S3). This is essential for team collaboration and state management. Also for state locking use DynamoDB.
+
+## Usage
+
+1.  **Configure AWS Credentials**: Ensure your AWS credentials are properly configured.
+2.  **Create Workspaces**: Run `terraform workspace new stage` & `terraform workspace new prod`
+3.  **Initialise Terraform**: Run `terraform init` to initialise the modules and backend.
+4.  **Select Environment**: Run `terraform workspace select stage` or `terraform workspace select stage`
+5.  **Plan Changes**: Run `terraform plan -var-file="environments/stage.tfvars"` or `terraform plan -var-file="environments/prod.tfvars"` to preview the changes.
+6.  **Apply Changes**: Run `terraform apply -var-file="environments/stage.tfvars"` or `terraform apply -var-file="environments/prod.tfvars"` to apply the changes.
+
 
 ## Vault Server
 
