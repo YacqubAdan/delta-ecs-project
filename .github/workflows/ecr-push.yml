@@ -12,14 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: "if no confirmation, exit"
-      run: |
-        if [ "${{ github.event.inputs.confirmation }}" != "yes" ]; then
-          echo "Exiting without deployment"
-          exit 1
-        fi
-      shell: bash
-
     - name: Checkout Code
       uses: actions/checkout@v3
 
