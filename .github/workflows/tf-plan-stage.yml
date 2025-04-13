@@ -1,12 +1,12 @@
 name: Terraform Plan on Stage
 
 on:
-   workflow_dispatch:
-    inputs:
-      confirmation:
-        description: 'Type "yes" to confirm deployment'
-        required: true
-        default: 'no'
+  pull_request:
+    types: [opened]
+    branches:
+      - stage 
+    paths:
+      - 'terraform/**'
 
 defaults:
  run:
