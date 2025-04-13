@@ -9,3 +9,5 @@ service_name              = "stage-delta-service"
 alb_name                  = "stage-delta-alb"
 tg_name                   = "stage-delta-tg"
 exec_role                 = "stage-exec-role"
+cpu                       = 1024
+memory                    = 2048

@@ -35,8 +35,8 @@ module "ecs" {
   desired_count  = 1
   container_port = 3000
   host_port      = 3000
-  memory         = "4096"
-  cpu            = "2048"
+  memory         = var.memory
+  cpu            = var.cpu
 }
 
 module "route53" {

@@ -9,3 +9,5 @@ service_name              = "prod-delta-service"
 alb_name                  = "prod-delta-alb"
 tg_name                   = "prod-delta-tg"
 exec_role                 = "prod-exec-role"
+cpu                       = 2048
+memory                    = 4096
