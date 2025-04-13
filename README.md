@@ -21,6 +21,7 @@ Deltavids is a global online video sharing platform where users watch videos onl
   - [Deployment Workflow](#deployment-workflow)
       - [ECR Image Management](#ecr-image-management)
       - [Terraform Infrastructure Management](#terraform-infrastructure-management)
+      - [Packer Pipeline](#packer-pipeline)
   - [AWS Services Used](#aws-services-used)
   - [Architecture Diagram](#architecture-diagram)
   - [Contributions](#contributions)
@@ -209,13 +210,14 @@ The deployment process is automated using GitHub Actions to ensure consistency. 
 * **Terraform Apply :** These workflows apply the Terraform changes. It's triggered by terraform changes to the `terraform` directory, combined with commits to the stage or prod environment branches.
 * **Terraform Destroy :** These workflows destroy the Terraform Infra and require manual confirmation.
 
+#### Packer Pipeline
+
+* **Push Vault AMI :**  The workflow runs only when files in the `packer-vault/` directory in the main branch. The way it works is that it retrieves AWS credentials from Vault and uses Packer to create the AMI.  
+
 All Terraform workflows:
 
      Retrieve AWS credentials from Vault.
-    
-
-
-
+  
 
 ## AWS Services Used
 
