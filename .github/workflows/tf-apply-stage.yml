@@ -6,7 +6,7 @@ on:
       - stage 
     paths:
       - 'terraform/**' 
-
+  workflow_dispatch:
 jobs:
   terraform-apply:
     runs-on: ubuntu-latest
