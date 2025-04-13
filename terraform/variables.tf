@@ -53,12 +53,12 @@ variable "exec_role" {
   description = "Execution role for ECS"
 }
 
-# variable "cpu" {
-#   type        = number
-#   description = "ECS Container CPU"
-# }
+variable "cpu" {
+  type        = number
+  description = "ECS Container CPU"
+}
 
-# variable "memory" {
-#   type        = number
-#   description = "ECS Container memory"
-# }
+variable "memory" {
+  type        = number
+  description = "ECS Container memory"
+}
