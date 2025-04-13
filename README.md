@@ -244,10 +244,10 @@ All Terraform workflows:
 
 | Contributor      | Role                     |
 |------------------|--------------------------|
-| Yacquub Adan     | Product Owner/Team Leader |
+| Yacquub Adan     | Product Owner/Team Leader|
 | Hersey Nageye    | Scrum Master             |
 | Sofian Mahmood   | Developer                |
-| Hanad            | Developer                |
+| Hanad  Isa       | Developer                |
 
 
 ## Licensing
