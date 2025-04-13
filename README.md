@@ -106,7 +106,7 @@ Make sure you're in packer-vault folder before running these commands.
 
 **Key Security Practices:**
 
--   Multistage build minimizes image size.
+-   Multistage build minimises image size.
 -   Uses a non-root user in the final image.
 -   Alpine base for reduced attack surface.
 
